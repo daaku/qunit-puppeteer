@@ -18,8 +18,6 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "@types/puppeteer-core": "^2.0.0",
-    "@types/qunit": "^2.9.1",
     "eslint": "^7.9.0",
     "eslint-config-daaku": "^2.0.0",
     "qunit": "^2.11.1"
