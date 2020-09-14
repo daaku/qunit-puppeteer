@@ -1,0 +1,30 @@
+{
+  "name": "@daaku/qunit-puppeteer",
+  "author": "Naitik Shah <n@daaku.org>",
+  "version": "0.1.0",
+  "description": "Run QUnit tests using puppeteer.",
+  "repository": "git@github.com:daaku/qunit-puppeteer",
+  "bin": "./bin.mjs",
+  "prettier": "prettier-config-daaku",
+  "scripts": {
+    "lint": "eslint --fix --ignore-pattern dist .",
+    "test": "./bin.mjs",
+    "deploy": "npm publish --access=public"
+  },
+  "keywords": [
+    "qunit",
+    "testing",
+    "puppeteer"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/puppeteer-core": "^2.0.0",
+    "@types/qunit": "^2.9.1",
+    "eslint": "^7.9.0",
+    "eslint-config-daaku": "^2.0.0",
+    "qunit": "^2.11.1"
+  },
+  "dependencies": {
+    "puppeteer-core": "^5.2.1"
+  }
+}
