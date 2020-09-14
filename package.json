@@ -7,7 +7,6 @@
   "bin": "./bin.mjs",
   "prettier": "prettier-config-daaku",
   "scripts": {
-    "lint": "eslint --fix --ignore-pattern dist .",
     "test": "./bin.mjs",
     "deploy": "npm publish --access=public"
   },
@@ -18,8 +17,6 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^7.9.0",
-    "eslint-config-daaku": "^2.0.0",
     "qunit": "^2.11.1"
   },
   "dependencies": {
