@@ -24,10 +24,24 @@ function browserPath() {
   throw new Error('no chrome or chromium binary found');
 }
 
+function getTimeout() {
+  if (process.env.TIMEOUT) {
+    return parseInt(process.env.TIMEOUT, 10);
+  }
+  return 5000;
+}
+
+function getURI() {
+  if (process.env.URI) {
+    return process.env.URI;
+  }
+  return `file://${path.resolve('test/index.html')}`;
+}
+
 async function main() {
   const start = Date.now();
-  const timeout = 5000;
-  const uri = `file://${path.resolve('test/index.html')}`;
+  const timeout = getTimeout();
+  const uri = getURI();
 
   const binary = browserPath();
   const browser = await puppeteer.launch({
