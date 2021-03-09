@@ -17,7 +17,7 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "@daaku/eslint-config": "^3.4.0",
+    "@daaku/eslint-config": "^3.6.0",
     "qunit": "^2.14.0"
   },
   "dependencies": {
