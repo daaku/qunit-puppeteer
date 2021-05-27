@@ -18,8 +18,12 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2.3.4
     - name: Bump Version
-      run: npm version ${{ github.event.inputs.version }}
-    - name: Push
-      run: git push && git push --tags
+      run: |
+        git config --global user.name 'Naitik Shah'
+        git config --global user.email 'daaku@users.noreply.github.com'
+        npm version ${{ github.event.inputs.version }}
+        git push && git push --tags
     - name: Publish
       run: npm run deploy
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
