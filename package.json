@@ -1,7 +1,7 @@
 {
   "name": "@daaku/qunit-puppeteer",
   "author": "Naitik Shah <n@daaku.org>",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Run QUnit tests using puppeteer.",
   "repository": "git@github.com:daaku/qunit-puppeteer",
   "bin": "./bin.mjs",
