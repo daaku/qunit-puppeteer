@@ -22,6 +22,6 @@
     "qunit": "^2.17.2"
   },
   "dependencies": {
-    "puppeteer-core": "^10.4.0"
+    "puppeteer-core": "^11.0.0"
   }
 }
