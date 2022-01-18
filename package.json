@@ -17,11 +17,11 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "@daaku/eslint-config": "^4.0.0",
+    "@daaku/eslint-config": "^4.2.0",
     "prettier-config-daaku": "^1.0.0",
     "qunit": "^2.17.2"
   },
   "dependencies": {
-    "puppeteer-core": "^13.0.0"
+    "puppeteer-core": "^13.1.1"
   }
 }
