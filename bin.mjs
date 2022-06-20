@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-import puppeteer from 'puppeteer-core';
-import path from 'path';
 import fs from 'fs';
+import path from 'path';
+import puppeteer from 'puppeteer-core';
 
 function onConsole(msg) {
   const type = msg.type();
