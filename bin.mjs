@@ -1,49 +1,53 @@
 #!/usr/bin/env node
-import fs from 'fs';
-import path from 'path';
+import mkdirp from 'mkdirp';
+import fs from 'node:fs/promises';
+import path from 'node:path';
 import puppeteer from 'puppeteer-core';
 
-function onConsole(msg) {
+const onConsole = (msg) => {
   const type = msg.type();
   const prefix = type === 'log' ? '' : `[${type}] `;
   console.log(prefix + msg.text());
-}
+};
 
-function terminate(browser, status = 0) {
+const terminate = (browser, status = 0) => {
   browser.close();
   process.exit(status);
-}
+};
 
-function browserPath() {
+const browserPath = async () => {
   const choices = ['/usr/bin/chromium', '/usr/bin/google-chrome'];
   for (const choice of choices) {
-    if (fs.existsSync(choice)) {
+    try {
+      await fs.stat(choice);
       return choice;
+    } catch {
+      continue;
     }
   }
   throw new Error('no chrome or chromium binary found');
-}
+};
 
-function getTimeout() {
+const getTimeout = () => {
   if (process.env.TIMEOUT) {
     return parseInt(process.env.TIMEOUT, 10);
   }
   return 5000;
-}
+};
 
-function getURI() {
+const getURI = () => {
   if (process.env.URI) {
     return process.env.URI;
   }
   return `file://${path.resolve('test/index.html')}`;
-}
+};
 
-async function main() {
+const main = async () => {
   const start = Date.now();
   const timeout = getTimeout();
   const uri = getURI();
 
-  const binary = browserPath();
+  const binary = await browserPath();
   const browser = await puppeteer.launch({
     args: ['--allow-file-access-from-files'],
     executablePath: binary,
@@ -63,10 +67,23 @@ async function main() {
     resolveRunEnd = resolve;
   });
   await page.exposeFunction('HARNESS_RUN_END', (data) => resolveRunEnd(data));
+  await page.coverage.startJSCoverage({
+    resetOnNavigation: false,
+    includeRawScriptCoverage: true,
+  });
   await page.goto(uri);
 
   const { testCounts, runtime } = await runEnd;
   clearTimeout(timer);
+  const coverage = await page.coverage.stopJSCoverage();
+  const outdir = process.env.NODE_V8_COVERAGE || 'coverage/tmp';
+  await mkdirp(outdir);
+  await fs.writeFile(
+    `${outdir}/out.json`,
+    JSON.stringify({
+      result: coverage.map((ci) => ci.rawScriptCoverage),
+    }),
+  );
 
   const success = testCounts.failed === 0;
   const prefix = success
@@ -80,6 +97,6 @@ async function main() {
   );
 
   terminate(browser, success ? 0 : 1);
-}
+};
 
 await main();
