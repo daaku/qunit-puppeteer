@@ -59,7 +59,7 @@ async function main() {
   }, timeout);
 
   let resolveRunEnd;
-  const runEnd = new Promise(async (resolve, reject) => {
+  const runEnd = new Promise((resolve) => {
     resolveRunEnd = resolve;
   });
   await page.exposeFunction('HARNESS_RUN_END', (data) => resolveRunEnd(data));
