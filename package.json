@@ -24,6 +24,6 @@
   },
   "dependencies": {
     "mkdirp": "^1.0.4",
-    "puppeteer-core": "^14.0.0"
+    "puppeteer-core": "^15.0.0"
   }
 }
