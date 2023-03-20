@@ -16,7 +16,11 @@ const terminate = (browser, status = 0) => {
 };
 
 const browserPath = async () => {
-  const choices = ['/usr/bin/chromium', '/usr/bin/google-chrome'];
+  const choices = [
+    '/usr/bin/chromium',
+    '/usr/bin/google-chrome',
+    '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+  ];
   for (const choice of choices) {
     try {
       await fs.stat(choice);
