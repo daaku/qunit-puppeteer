@@ -53,6 +53,7 @@ const main = async () => {
 
   const binary = await browserPath();
   const browser = await puppeteer.launch({
+    headless: 'new',
     args: ['--allow-file-access-from-files'],
     executablePath: binary,
   });
