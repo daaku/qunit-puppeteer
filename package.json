@@ -5,7 +5,12 @@
   "description": "Run QUnit tests using puppeteer.",
   "repository": "git@github.com:daaku/qunit-puppeteer",
   "bin": "./bin.mjs",
-  "prettier": "prettier-config-daaku",
+  "prettier": {
+    "arrowParens": "avoid",
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "all"
+  },
   "scripts": {
     "test": "./bin.mjs",
     "deploy": "npm publish --access=public"
@@ -17,9 +22,7 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "@daaku/eslint-config": "^4.2.0",
     "c8": "^7.11.3",
-    "prettier-config-daaku": "^1.0.0",
     "qunit": "^2.17.2"
   },
   "dependencies": {
