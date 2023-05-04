@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import mkdirp from 'mkdirp';
+import { mkdirp } from 'mkdirp';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import puppeteer from 'puppeteer-core';
