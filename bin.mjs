@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import which from 'which';
 import { mkdirp } from 'mkdirp';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -19,7 +20,11 @@ const browserPath = async () => {
   const choices = [
     '/usr/bin/chromium',
     '/usr/bin/google-chrome',
+    '/usr/bin/brave',
     '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+    await which('chromium', { nothrow: true }),
+    await which('google-chrome', { nothrow: true }),
+    await which('brave', { nothrow: true }),
   ];
   for (const choice of choices) {
     try {
