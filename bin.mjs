@@ -16,16 +16,7 @@ const terminate = (browser, status = 0) => {
   process.exit(status);
 };
 
-const browserPath = async () => {
-  const choices = [
-    '/usr/bin/chromium',
-    '/usr/bin/google-chrome',
-    '/usr/bin/brave',
-    '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
-    await which('chromium', { nothrow: true }),
-    await which('google-chrome', { nothrow: true }),
-    await which('brave', { nothrow: true }),
-  ];
+const firstPath = async (choices, msg) => {
   for (const choice of choices) {
     try {
       await fs.stat(choice);
@@ -34,7 +25,22 @@ const browserPath = async () => {
       continue;
     }
   }
-  throw new Error('no chrome or chromium binary found');
+  throw new Error(msg);
+};
+
+const browserPath = async () => {
+  return await firstPath(
+    [
+      '/usr/bin/chromium',
+      '/usr/bin/google-chrome',
+      '/usr/bin/brave',
+      '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+      await which('chromium', { nothrow: true }),
+      await which('google-chrome', { nothrow: true }),
+      await which('brave', { nothrow: true }),
+    ],
+    'no chrome or chromium binary found',
+  );
 };
 
 const getTimeout = () => {
@@ -44,17 +50,26 @@ const getTimeout = () => {
   return 5000;
 };
 
-const getURI = () => {
+const getURI = async () => {
   if (process.env.URI) {
     return process.env.URI;
   }
-  return `file://${path.resolve('test/index.html')}`;
+  const file = await firstPath(
+    [
+      path.resolve('dist/test/index.html'),
+      path.resolve('dist/tests/index.html'),
+      path.resolve('test/index.html'),
+      path.resolve('tests/index.html'),
+    ],
+    'could not determine HTML entrypoint',
+  );
+  return `file://${file}`;
 };
 
 const main = async () => {
   const start = Date.now();
   const timeout = getTimeout();
-  const uri = getURI();
+  const uri = await getURI();
 
   const binary = await browserPath();
   const browser = await puppeteer.launch({
