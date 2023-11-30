@@ -54,6 +54,7 @@ const getLaunchTimeout = () => {
   if (process.env.LAUNCH_TIMEOUT) {
     return parseInt(process.env.LAUNCH_TIMEOUT, 10)
   }
+  return 60000
 }
 
 const getURI = async () => {
