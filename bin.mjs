@@ -50,6 +50,12 @@ const getTimeout = () => {
   return 5000
 }
 
+const getLaunchTimeout = () => {
+  if (process.env.LAUNCH_TIMEOUT) {
+    return parseInt(process.env.LAUNCH_TIMEOUT, 10)
+  }
+}
+
 const getURI = async () => {
   if (process.env.URI) {
     return process.env.URI
@@ -76,6 +82,7 @@ const main = async () => {
     headless: 'new',
     args: ['--allow-file-access-from-files'],
     executablePath: binary,
+    timeout: getLaunchTimeout(),
   })
 
   const page = await browser.newPage()
