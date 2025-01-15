@@ -81,9 +81,13 @@ const main = async () => {
   const binary = await browserPath()
   const browser = await puppeteer.launch({
     headless: 'new',
-    args: ['--allow-file-access-from-files'],
     executablePath: binary,
     timeout: getLaunchTimeout(),
+    args: [
+      '--allow-file-access-from-files',
+      '--disable-setuid-sandbox',
+      '--no-sandbox',
+    ],
   })
 
   const page = await browser.newPage()
