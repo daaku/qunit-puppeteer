@@ -28,6 +28,6 @@
   "dependencies": {
     "mkdirp": "^3.0.1",
     "puppeteer-core": "^24.0.0",
-    "which": "^5.0.0"
+    "which": "^6.0.0"
   }
 }
